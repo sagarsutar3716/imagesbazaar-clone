@@ -1,0 +1,97 @@
+{% include 'base.html '%}
+<html>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,500&display=swap" rel="stylesheet">
+
+
+<style>
+    .list-group-item.active {
+        background: #042331;
+        text-decoration: none;
+        font-family: 'Roboto Mono', monospace;
+    }
+
+    .categories {
+        background: black;
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 700;
+    }
+ .image_view{
+     background: black;
+     color: white;
+ }
+
+.category{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+</style>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-2 category">
+            <!--categories-->
+
+            <div class="list-group">
+                <a href="/" class="list-group-item list-group-item-action active">
+                    All Images>
+                </a>
+                {% for c in cats %}
+
+                <a href="/category/{{c.pk}}" class="list-group-item list-group-item-action categories">{{c.title}}</a>
+
+                {% endfor%}
+            </div>
+            
+        </div>
+       
+        <div class="col-md-10"> 
+
+            <div class="card-columns">
+                {% for i in images %}
+
+                <div class="card">
+                 <img src="/media/{{i.image}}" class="card-img-top" alt="image">
+                 <a href="#" class="btn image_view float-right mx-1 my-1" onclick="showmodalImage('{{i.image}}')">View In Full</a>
+                </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="imageView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">imagesbazaar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="#!" alt="" id="image-display" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script>
+    function showmodalImage(imageUrl){
+        $("#imageView").modal('show')
+        $("#image-display").attr('src',`/media/${imageUrl}`)
+    }
+</script>
+
+</html>
